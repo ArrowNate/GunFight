@@ -29,6 +29,14 @@ public class PlayerTwo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            transform.Translate(Vector2.up * playerTwoSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            transform.Translate(Vector2.down * playerTwoSpeed * Time.deltaTime);
+        }
     }
 }
