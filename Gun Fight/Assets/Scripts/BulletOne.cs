@@ -12,6 +12,7 @@ public class BulletOne : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        bulletOneSpeed = 600.0f;
         bulletOneDamage = 10;
         rb.AddRelativeForce(Vector2.right * bulletOneSpeed);
     }
@@ -31,6 +32,11 @@ public class BulletOne : MonoBehaviour
         if (collision.gameObject.layer == 7)
         {
             Destroy(gameObject);
+        }
+
+        if (collision.gameObject.tag == "Cactus")
+        {
+            collision.gameObject.GetComponent<Cactus>().CactusTakeDamage(bulletOneDamage);
         }
     }
 

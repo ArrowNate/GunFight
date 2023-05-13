@@ -9,12 +9,11 @@ public class GunOne : MonoBehaviour
     public GameObject bullet;
     private bool canShoot;
 
-    public GameObject objectToRotate;
-    //public KeyCode rotateButton = KeyCode.Q;
-    public float rotationSpeed = 500.0f;
-    public float targetAngleUp = 20.0f;
-    public float targetAngleStraight = 0.0f;
-    public float targetAngleDown = -20.0f;
+    public GameObject objectToRotateOne;
+    public float rotationSpeedOne = 500.0f;
+    public float targetAngleUpOne = 20.0f;
+    public float targetAngleStraightOne = 0.0f;
+    public float targetAngleDownOne = -20.0f;
 
     private bool isRotatingUp = false;
     private bool isRotatingStraight = false;
@@ -33,7 +32,7 @@ public class GunOne : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && canShoot)
         {
             bulletOneAmount -= 1;
-            Instantiate(bullet, bulletSpawnPointOne.position, Quaternion.identity);
+            Instantiate(bullet, bulletSpawnPointOne.position, bulletSpawnPointOne.rotation);
         }
 
         if (bulletOneAmount > 0)
@@ -62,11 +61,11 @@ public class GunOne : MonoBehaviour
 
         if (isRotatingUp)
         {
-            float currentAngle = objectToRotate.transform.eulerAngles.z;
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngleUp, rotationSpeed * Time.fixedDeltaTime);
-            objectToRotate.transform.eulerAngles = new Vector3(0.0f, 0.0f, newAngle);
+            float currentAngle = objectToRotateOne.transform.eulerAngles.z;
+            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngleUpOne, rotationSpeedOne * Time.fixedDeltaTime);
+            objectToRotateOne.transform.eulerAngles = new Vector3(0.0f, 0.0f, newAngle);
 
-            if (Mathf.Approximately(newAngle, targetAngleUp))
+            if (Mathf.Approximately(newAngle, targetAngleUpOne))
             {
                 isRotatingUp = false;
             }
@@ -74,11 +73,11 @@ public class GunOne : MonoBehaviour
 
         if (isRotatingStraight)
         {
-            float currentAngle = objectToRotate.transform.eulerAngles.z;
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngleStraight, rotationSpeed * Time.fixedDeltaTime);
-            objectToRotate.transform.eulerAngles = new Vector3(0.0f, 0.0f, newAngle);
+            float currentAngle = objectToRotateOne.transform.eulerAngles.z;
+            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngleStraightOne, rotationSpeedOne * Time.fixedDeltaTime);
+            objectToRotateOne.transform.eulerAngles = new Vector3(0.0f, 0.0f, newAngle);
 
-            if (Mathf.Approximately(newAngle, targetAngleStraight))
+            if (Mathf.Approximately(newAngle, targetAngleStraightOne))
             {
                 isRotatingStraight = false;
             }
@@ -86,11 +85,11 @@ public class GunOne : MonoBehaviour
 
         if (isRotatingDown)
         {
-            float currentAngle = objectToRotate.transform.eulerAngles.z;
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngleDown, rotationSpeed * Time.fixedDeltaTime);
-            objectToRotate.transform.eulerAngles = new Vector3(0.0f, 0.0f, newAngle);
+            float currentAngle = objectToRotateOne.transform.eulerAngles.z;
+            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngleDownOne, rotationSpeedOne * Time.fixedDeltaTime);
+            objectToRotateOne.transform.eulerAngles = new Vector3(0.0f, 0.0f, newAngle);
 
-            if (Mathf.Approximately(newAngle, targetAngleDown))
+            if (Mathf.Approximately(newAngle, targetAngleDownOne))
             {
                 isRotatingDown = false;
             }
