@@ -173,3 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletOneSpeed: 600
   bulletOneDamage: 10
+  rb2: {fileID: -6884295414012020591}
+  bounceLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  maxBounces: 3

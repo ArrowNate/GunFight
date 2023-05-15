@@ -7,6 +7,11 @@ public class BulletOne : MonoBehaviour
     public float bulletOneSpeed;
     public float bulletOneDamage;
     private Rigidbody2D rb;
+    public Rigidbody2D rb2;
+    public LayerMask bounceLayers;
+    public int maxBounces = 3;
+
+    private int bounces = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +20,7 @@ public class BulletOne : MonoBehaviour
         bulletOneSpeed = 600.0f;
         bulletOneDamage = 10;
         rb.AddRelativeForce(Vector2.right * bulletOneSpeed);
+        rb2.velocity = transform.right * bulletOneSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -37,6 +43,27 @@ public class BulletOne : MonoBehaviour
         if (collision.gameObject.tag == "Cactus")
         {
             collision.gameObject.GetComponent<Cactus>().CactusTakeDamage(bulletOneDamage);
+        }
+
+        if (bounceLayers == (bounceLayers | (1 << collision.gameObject.layer)))
+        {
+            bounces++;
+
+            if (bounces >= maxBounces)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                // Reflect the velocity of the bullet off the collision normal
+                Vector2 reflect = Vector2.Reflect(rb.velocity, collision.contacts[0].normal);
+                rb.velocity = reflect.normalized * bulletOneSpeed;
+            }
+        }
+        else
+        {
+            // Hit an object that the bullet can't bounce off of, destroy the bullet
+            Destroy(gameObject);
         }
     }
 

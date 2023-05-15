@@ -32,7 +32,7 @@ public class GunTwo : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
             bulletTwoAmount -= 1;
-            Instantiate(bullet, bulletSpawnPointTwo.position, Quaternion.identity);
+            Instantiate(bullet, bulletSpawnPointTwo.position, bulletSpawnPointTwo.rotation);
         }
 
         if (bulletTwoAmount > 0)
@@ -44,22 +44,22 @@ public class GunTwo : MonoBehaviour
             canShoot = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            isRotatingUp = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            isRotatingStraight = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse3))
         {
             isRotatingDown = true;
         }
 
-        if (isRotatingUp)
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            isRotatingStraight = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse4))
+        {
+            isRotatingUp = true;
+        }
+
+        if (isRotatingDown)
         {
             float currentAngle = objectToRotateTwo.transform.eulerAngles.z;
             float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngleUpTwo, rotationSpeedTwo * Time.fixedDeltaTime);
@@ -67,7 +67,7 @@ public class GunTwo : MonoBehaviour
 
             if (Mathf.Approximately(newAngle, targetAngleUpTwo))
             {
-                isRotatingUp = false;
+                isRotatingDown = false;
             }
         }
 
@@ -83,7 +83,7 @@ public class GunTwo : MonoBehaviour
             }
         }
 
-        if (isRotatingDown)
+        if (isRotatingUp)
         {
             float currentAngle = objectToRotateTwo.transform.eulerAngles.z;
             float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngleDownTwo, rotationSpeedTwo * Time.fixedDeltaTime);
@@ -91,7 +91,7 @@ public class GunTwo : MonoBehaviour
 
             if (Mathf.Approximately(newAngle, targetAngleDownTwo))
             {
-                isRotatingDown = false;
+                isRotatingUp = false;
             }
         }
     }

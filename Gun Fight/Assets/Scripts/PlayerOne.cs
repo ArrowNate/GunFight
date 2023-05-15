@@ -6,6 +6,7 @@ public class PlayerOne : MonoBehaviour
 {
     public float playerOneHealth;
     public float playerOneSpeed;
+    private bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +27,26 @@ public class PlayerOne : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Stopper")
+        {
+            Debug.Log("Entered");
+            canMove = false;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (canMove == true)
+        {
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Translate(Vector2.right * playerOneSpeed * Time.deltaTime);
+            }
+        }
+
         if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector2.up * playerOneSpeed * Time.deltaTime);
@@ -39,16 +57,10 @@ public class PlayerOne : MonoBehaviour
             transform.Translate(Vector2.down * playerOneSpeed * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector2.right * playerOneSpeed * Time.deltaTime);
-        }
-
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector2.left * playerOneSpeed * Time.deltaTime);
         }
-
         /*float verticalInput = Input.GetAxisRaw("Vertical");  // Get vertical input from player
         transform.Translate(new Vector3(0, verticalInput, 0) * playerOneSpeed * Time.deltaTime);  // Move player up or down based on input*/
 

@@ -38,5 +38,15 @@ public class PlayerTwo : MonoBehaviour
         {
             transform.Translate(Vector2.down * playerTwoSpeed * Time.deltaTime);
         }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.Translate(Vector2.right * playerTwoSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Translate(Vector2.left * playerTwoSpeed * Time.deltaTime);
+        }
     }
 }
