@@ -6,6 +6,7 @@ public class PlayerTwo : MonoBehaviour
 {
     public float playerTwoHealth;
     public float playerTwoSpeed;
+    private bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +27,34 @@ public class PlayerTwo : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Stopper"))
+        {
+            canMove = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Stopper"))
+        {
+            canMove = true;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (canMove == true)
+        {
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(Vector2.left * playerTwoSpeed * Time.deltaTime);
+            }
+        }
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
             transform.Translate(Vector2.up * playerTwoSpeed * Time.deltaTime);
@@ -42,11 +68,6 @@ public class PlayerTwo : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(Vector2.right * playerTwoSpeed * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Translate(Vector2.left * playerTwoSpeed * Time.deltaTime);
         }
     }
 }

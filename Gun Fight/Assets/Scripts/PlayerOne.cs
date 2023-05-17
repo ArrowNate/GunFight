@@ -27,12 +27,20 @@ public class PlayerOne : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.tag == "Stopper")
+       
+        if (collision.CompareTag("Stopper"))
         {
-            Debug.Log("Entered");
             canMove = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Stopper"))
+        {
+            canMove = true;
         }
     }
 

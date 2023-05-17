@@ -7,9 +7,9 @@ public class BulletOne : MonoBehaviour
     public float bulletOneSpeed;
     public float bulletOneDamage;
     private Rigidbody2D rb;
-    public Rigidbody2D rb2;
     public LayerMask bounceLayers;
     public int maxBounces = 3;
+    public float maxBounceAngle = 45f;
 
     private int bounces = 0;
 
@@ -20,8 +20,8 @@ public class BulletOne : MonoBehaviour
         bulletOneSpeed = 600.0f;
         bulletOneDamage = 10;
         rb.AddRelativeForce(Vector2.right * bulletOneSpeed);
-        rb2.velocity = transform.right * bulletOneSpeed;
-    }
+/*        rb.velocity = transform.right * bulletOneSpeed;
+*/    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -45,7 +45,27 @@ public class BulletOne : MonoBehaviour
             collision.gameObject.GetComponent<Cactus>().CactusTakeDamage(bulletOneDamage);
         }
 
-        if (bounceLayers == (bounceLayers | (1 << collision.gameObject.layer)))
+        // Check if the bullet collided with a wall
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            // Calculate the new direction based on the wall's normal
+            Vector2 wallNormal = collision.contacts[0].normal;
+            Vector2 reflectedDirection = Vector2.Reflect(rb.velocity.normalized, wallNormal);
+
+            // Limit the bounce angle to prevent steep bounces
+            float angle = Vector2.Angle(reflectedDirection, rb.velocity);
+            if (angle > maxBounceAngle)
+            {
+                float rotateAngle = Mathf.Atan2(reflectedDirection.y, reflectedDirection.x) * Mathf.Rad2Deg;
+                rotateAngle = Mathf.MoveTowardsAngle(rotateAngle, Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg, maxBounceAngle);
+                reflectedDirection = Quaternion.Euler(0, 0, rotateAngle) * rb.velocity.normalized;
+            }
+
+            // Update the bullet's velocity with the reflected direction
+            rb.velocity = reflectedDirection * bulletOneSpeed;
+        }
+
+        /*if (bounceLayers == (bounceLayers | (1 << collision.gameObject.layer)))
         {
             bounces++;
 
@@ -64,7 +84,7 @@ public class BulletOne : MonoBehaviour
         {
             // Hit an object that the bullet can't bounce off of, destroy the bullet
             Destroy(gameObject);
-        }
+        }*/
     }
 
     // Update is called once per frame
