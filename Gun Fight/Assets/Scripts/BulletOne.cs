@@ -63,28 +63,8 @@ public class BulletOne : MonoBehaviour
 
             // Update the bullet's velocity with the reflected direction
             rb.velocity = reflectedDirection * bulletOneSpeed;
+            Debug.Log("Hit");
         }
-
-        /*if (bounceLayers == (bounceLayers | (1 << collision.gameObject.layer)))
-        {
-            bounces++;
-
-            if (bounces >= maxBounces)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                // Reflect the velocity of the bullet off the collision normal
-                Vector2 reflect = Vector2.Reflect(rb.velocity, collision.contacts[0].normal);
-                rb.velocity = reflect.normalized * bulletOneSpeed;
-            }
-        }
-        else
-        {
-            // Hit an object that the bullet can't bounce off of, destroy the bullet
-            Destroy(gameObject);
-        }*/
     }
 
     // Update is called once per frame
