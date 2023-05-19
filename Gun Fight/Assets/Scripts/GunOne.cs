@@ -94,21 +94,5 @@ public class GunOne : MonoBehaviour
                 isRotatingDown = false;
             }
         }
-
-        /*        // Get the current angle of the object
-                float currentAngle = transform.rotation.eulerAngles.z;
-
-                // Calculate the difference between the current angle and the target angle
-                float angleDifference = targetAngle - currentAngle;
-
-                // Rotate the object towards the target angle
-                transform.Rotate(new Vector3(0, 0, angleDifference) * Time.deltaTime);*/
-
-
     }
-
-/*    void FixedUpdate()
-    {
-        
-    }*/
 }

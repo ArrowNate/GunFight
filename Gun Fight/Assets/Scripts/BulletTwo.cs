@@ -7,6 +7,7 @@ public class BulletTwo : MonoBehaviour
     public float bulletTwoSpeed;
     public float bulletTwoDamage;
     private Rigidbody2D rb;
+    Vector3 lastVelocity;
 
     // Start is called before the first frame update
     void Start()
@@ -38,11 +39,16 @@ public class BulletTwo : MonoBehaviour
         {
             collision.gameObject.GetComponent<Cactus>().CactusTakeDamage(bulletTwoDamage);
         }
+
+        var speed = lastVelocity.magnitude;
+        var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+
+        rb.velocity = direction * Mathf.Max(speed, 0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        lastVelocity = rb.velocity;
     }
 }
