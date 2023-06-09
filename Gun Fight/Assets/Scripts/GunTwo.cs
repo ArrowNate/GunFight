@@ -44,7 +44,7 @@ public class GunTwo : MonoBehaviour
             canShoot = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse3))
+        if (Input.GetKeyDown(KeyCode.Mouse3) || Input.GetKeyDown(KeyCode.RightControl))
         {
             isRotatingDown = true;
         }
@@ -54,7 +54,7 @@ public class GunTwo : MonoBehaviour
             isRotatingStraight = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse4))
+        if (Input.GetKeyDown(KeyCode.Mouse4) || Input.GetKeyDown(KeyCode.RightShift))
         {
             isRotatingUp = true;
         }
